@@ -1,0 +1,37 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded " style="margin-bottom: 15px">
+  <a class="navbar-brand" href="#">Reactive Twitter Emotions</a>
+  <form class="form-inline my-2 my-lg-0 justify-content-end ml-auto">
+    <button  class="btn btn-outline-warning my-2 my-sm-0 float-right" type="submit" (click)="reset()" style="margin-left: 10px ;">Reset map</button>
+    <button class="btn btn-outline-info my-2 my-sm-0 float-right" type="submit" (click)="open(content)" style="margin-left: 10px ;">Settings</button>
+    <button *ngIf="!connected" class="btn btn-outline-success my-2 my-sm-0 float-right" type="submit" (click)="connect()" style="margin-left: 10px ;">Connect</button>
+    <button *ngIf="connected" class="btn btn-outline-danger my-2 my-sm-0 float-right" type="submit" (click)="disconnect()" style="margin-left: 10px ;">Disconnect</button>
+
+  </form></nav>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Configuration</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <h6>Hastags</h6>
+    <tag-input [(ngModel)]='hashtags' theme='bootstrap' (ngModelChange)="settingsChanged()"></tag-input>
+      <h6>Languages</h6>
+    <tag-input [(ngModel)]='langs' theme='bootstrap' (ngModelChange)="settingsChanged()"></tag-input>
+      <h6>Quantity Filter</h6>
+    <tag-input [(ngModel)]='quanFilters' theme='bootstrap' (ngModelChange)="settingsChanged()"></tag-input>
+  </div>
+
+</ng-template>
+
+
+
+<div style="height: 640px; width: 95%;margin: 0 auto; position: relative;"
+     leaflet
+     [leafletOptions]="options"
+     (leafletMapReady)="onMapReady($event)"
+>
+</div>
+
